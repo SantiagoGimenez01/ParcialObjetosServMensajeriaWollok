@@ -14,10 +14,15 @@ class Chat{
         mensajes.add(mensaje)
         participantes.forEach({participantes => participantes.almacenar(mensaje)})
     }
-    method buscarEnElChat(texto){
+    method contiene(texto){
         var mensajesEncontrados = []
         mensajesEncontrados = mensajes.filter({mensaje => mensaje.contieneTexto(texto)})
-        return mensajesEncontrados
+        return mensajesEncontrados.size() > 0
+    }
+    method agregarA(alguien) = participantes.add(alguien)
+    method elMasPesado() = mensajes.max({mensaje => mensaje.peso()})
+    method mandarNotificacion(){
+        participantes.forEach({participante => participante.notificacion(self)})
     }
 }
 

@@ -7,7 +7,7 @@ import usuario.*
 describe "Envios de mensaje a chats" {
     const santi = new Usuario(memoriaDisponible = 30, nombre="Santiago")
     const mili = new Usuario(memoriaDisponible = 50, nombre="Milagros")
-    const facu = new Usuario(memoriaDisponible = 40, nombre="Facuno")
+    const facu = new Usuario(memoriaDisponible = 40, nombre="Facundo")
     const grupo = new Chat(participantes = [santi, mili, facu])
     const grupoPremium = new ChatPremium(participantes = [santi, mili, facu], creador = santi, limite = 5, restriccion = new RestriccionAdicional(pesoMax = 10))
     const saludo = new Mensaje(emisor = santi, contenido = new Texto(contiene="Hola"))
@@ -32,9 +32,19 @@ describe "Envios de mensaje a chats" {
   }
 
   test "Busqueda de mensajes"{
+    santi.enviar(saludo, grupoPremium)
+    mili.enviar(risa, grupo)
+    assert.equals(2, santi.busquedaDe("la").size())
+  }
+
+  test "Notificaciones de Facu" {
     santi.enviar(saludo, grupo)
     mili.enviar(risa, grupo)
-    assert.equals(2, grupo.buscarEnElChat("la").size())
+    assert.equals(2, facu.notificaciones().size())
+  }
+
+  test "Falla de mensaje ya que Mili no es la creadora del grupo premium" {
+    assert.throwsExceptionWithMessage("El chat no puede almacenar el mensaje que se quiere enviar", {mili.enviar(risa, grupoPremium)})
   }
 
 }
