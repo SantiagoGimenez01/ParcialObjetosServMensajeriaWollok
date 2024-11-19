@@ -1,9 +1,34 @@
-import example.pepita
+import mensajes.*
+import contenidos.*
+import chats.*
+import modosDeCompresion.*
+import usuario.*
 
-describe "group of tests for pepita" {
+describe "Envios de mensaje a chats" {
+    const santi = new Usuario(memoriaDisponible = 30)
+    const mili = new Usuario(memoriaDisponible = 50)
+    const facu = new Usuario(memoriaDisponible = 40)
+    const grupo = new Chat(participantes = [santi, mili, facu])
+    const grupoPremium = new ChatPremium(participantes = [santi, mili, facu], creador = santi, limite = 5, restriccion = new RestriccionAdicional(pesoMax = 10))
+    const saludo = new Mensaje(emisor = santi, contenido = new Texto(texto="Hola"))
+    const risa = new Mensaje(emisor = santi, contenido = new Texto(texto="jaj"))
 
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
+
+  test "Envio de mensaje a chat clasico exitoso" {
+    santi.enviar(saludo, grupo)
+    mili.enviar(risa, grupo)
+    assert.that(grupo.mensajes().size() == 2)
+    assert.equals(19.1, santi.memoriaUsada())
+    assert.equals(19.1, mili.memoriaUsada())
+    assert.equals(19.1, facu.memoriaUsada())
+  }
+
+  test "Envio de mensaje a chat premium" {
+    santi.enviar(risa, grupoPremium)
+    assert.that(grupoPremium.mensajes().size() == 1)
+    assert.equals(8.9, santi.memoriaUsada())
+    assert.equals(8.9, mili.memoriaUsada())
+    assert.equals(8.9, facu.memoriaUsada())
   }
 
 }
