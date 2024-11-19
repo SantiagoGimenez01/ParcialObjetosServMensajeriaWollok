@@ -27,11 +27,8 @@ class Usuario{
         chat.agregarA(alguien)
         alguien.agregarChat(chat)
     }
-    method mensajesMasPesados(){
-        const masPesados = []
-        masPesados.add(chats.apply({chat => chat.elMasPesado()}))
-        return masPesados
-    }
+    method mensajesMasPesados() = chats.map({chat => chat.elMasPesado()})
+    
     
     method notificacion(chat) = notificaciones.add(chat)
 
