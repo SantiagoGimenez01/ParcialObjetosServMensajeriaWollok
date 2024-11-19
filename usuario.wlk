@@ -1,6 +1,7 @@
 class Usuario{
     const memoriaDisponible
     var property memoriaUsada = 0
+    const property nombre
 
     method puedeAlmacenar(mensaje) = memoriaDisponible >= memoriaUsada + mensaje.peso()
     method enviar(mensaje, chat){

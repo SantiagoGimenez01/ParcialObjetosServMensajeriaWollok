@@ -14,6 +14,11 @@ class Chat{
         mensajes.add(mensaje)
         participantes.forEach({participantes => participantes.almacenar(mensaje)})
     }
+    method buscarEnElChat(texto){
+        var mensajesEncontrados = []
+        mensajesEncontrados = mensajes.filter({mensaje => mensaje.contieneTexto(texto)})
+        return mensajesEncontrados
+    }
 }
 
 class ChatPremium inherits Chat{

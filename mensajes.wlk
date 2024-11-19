@@ -5,4 +5,5 @@ class Mensaje{
   const contenido
   
   method peso() = datosFijosDeTransferencia + contenido.peso() * factorDeRed
+  method contieneTexto(texto) = contenido.contiene().contains(texto) || emisor.nombre().contains(texto)
 }

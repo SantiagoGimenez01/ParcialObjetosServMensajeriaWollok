@@ -1,9 +1,9 @@
 import modosDeCompresion.*
 
 class Texto{
-    const texto
+    const property contiene
 
-    method peso() = texto.size()
+    method peso() = contiene.size()
 }
 
 class Audio{
@@ -30,7 +30,7 @@ class Gif inherits Imagen{
 }
 
 class Contacto{
-    const usuario
+    const property contiene
 
     method peso() = 3
 }
